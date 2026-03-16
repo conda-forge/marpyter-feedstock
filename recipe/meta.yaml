@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/marpyter-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/marpyter-{{ version }}.tar.gz
   sha256: b3b631988bbbd35b2c44e1b00c227f3bbe9ca242a09601147958f0f46b46defa
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - hatchling >=1.5.0
     - jupyterlab >=4.0.0,<5
     - hatch-nodejs-version
     - hatch-jupyter-builder >=0.5
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - jupyter_server >=2.0.1,<3
 
 test:
@@ -33,6 +33,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/trungleduc/marpyter
